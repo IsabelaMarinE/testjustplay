@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 
 //Redux
-import { reducer } from './reducers/reducer';
+import { store } from "./redux/app/store";
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStrore } from 'redux';
 
