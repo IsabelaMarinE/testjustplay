@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getListCities, getCityById } from "./cityThunk"
+import { getListCities, getCityById, getCityByName } from "./cityThunk"
 
 const citySlice = createSlice({
   name: "city",
@@ -34,6 +34,21 @@ const citySlice = createSlice({
       state.isError = "";
     },
     [getCityById.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.cities = [];
+      state.isError = action.error.message;
+    },
+
+    // GET CITY BY NAME
+    [getCityByName.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getCityByName.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.cities = action.payload;
+      state.isError = "";
+    },
+    [getCityByName.rejected]: (state, action) => {
       state.isLoading = false;
       state.cities = [];
       state.isError = action.error.message;

@@ -23,3 +23,14 @@ export const getCityById = createAsyncThunk("city/getCityById", async (id) => {
     throw new Error(err.response);
   })
 });
+
+
+export const getCityByName = createAsyncThunk("city/getCityByName", async (name) => {
+  await axios.get(`${baseUrl}/api/getCityByName/${name}`)
+  .then((data) => {
+    return data;
+  })
+  .catch((err) => {
+    throw new Error(err.response);
+  })
+});

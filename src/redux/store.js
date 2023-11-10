@@ -6,3 +6,9 @@ export const store = configureStore({
     cities: citySlice.reducer,
   },
 });
+
+//Export Actions
+export const citiesActions = citySlice.actions;
+
+//Export Thunks
+export * from './cities/cityThunk';
