@@ -2,16 +2,20 @@ import React from 'react';
 import './CardItem.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { getGamesByCity, getGameById } from '../../redux/games/gameThunk';
+import { getGameById } from '../../redux/games/gameThunk';
 
 function CardItem({data, isPlay}) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-
+  let id = "";
+  if(isPlay){
+    id = data.id_play;
+  }else{
+    id = data.id_city;
+  }
   const selectGame = async(id) => {
     if(!isPlay){
-      dispatch(getGamesByCity(id));
-      navigate("/gamepage");
+      navigate(`/gamepage/${id}`);
     } else {
       dispatch(getGameById(id));
       navigate("/details");
@@ -19,7 +23,7 @@ function CardItem({data, isPlay}) {
     
   }
   return(
-    <li className="flex justify-between gap-x-6 py-5 style-li" onClick={() => selectGame(data.id)}>
+    <li className="flex justify-between gap-x-6 py-5 style-li" onClick={() => selectGame(id)}>
       <div className="flex min-w-0 gap-x-4">
         <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={data.img} alt={data.name} />
         <div className="min-w-0 flex-auto">

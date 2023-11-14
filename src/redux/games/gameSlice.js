@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getGamesByCity, createGame, updateGame, filterGame, getGameById, getAllGames } from "./gameThunk"
+import { getGamesByCity, createGame, updateGame, filterGame, getGameById, getAllGames } from "./gameThunk";
 
 const gameSlice = createSlice({
   name: "game",

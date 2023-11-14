@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { getAllGames } from '../../redux/games/gameThunk';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getAllGames, getGamesByCity } from '../../redux/games/gameThunk';
 import { CardItem } from '../../components/card/CardItem';
 import { Loading } from '../../components/loading/Loading';
 import './GamePage.css';
@@ -9,16 +9,21 @@ import './GamePage.css';
 function GamePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const { isLoading, games, isError } = useSelector((state) => ({
-    ...state.games,
+    ...state.games
   }));
 
   useEffect(() => {
-    if(!games){
+    if(id){
+      dispatch(getGamesByCity(id));
+    }else {
       dispatch(getAllGames());
     }
-  }, []);
+  }, [dispatch, games, id]);
+
+  console.log("game",games)
 
   const navigateToFormGame = () => {
     navigate('/createGame');
@@ -38,13 +43,11 @@ function GamePage() {
       ) : null}
 
       {!isLoading && games ? (
-        <>                        
-        {games.map((game) => (
-          <ul role="list" className="divide-y divide-gray-100" >
-            <CardItem key={game.id} data={game} isPlay={true}></CardItem>
-          </ul>
-        ))}
-        </>
+        <ul className="divide-y divide-gray-100" >                     
+          {games.map((game) => (
+            <CardItem key={game.id_game} data={game} isPlay={true}></CardItem>
+          ))}
+        </ul>
       ) : 
       <div className="p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
         No games

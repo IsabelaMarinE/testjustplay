@@ -12,7 +12,7 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(getListCities());
-  }, []);
+  }, [dispatch]);
 
   const { isLoading, cities, isError } = useSelector((state) => ({
     ...state.cities,
@@ -34,10 +34,10 @@ function HomePage() {
         </div>
       ) : null}
 
-      {!isLoading && cities ? (
-        <ul role="list" className="divide-y divide-gray-100 items-center" >                       
+      {!isLoading && cities && cities.length > 0 ? (
+        <ul className="divide-y divide-gray-100 items-center" >                       
           {cities.map((city) => (
-            <CardItem key={city.id} data={city} isPlay={false}></CardItem>
+            <CardItem key={city.id_city} data={city} isPlay={false}></CardItem>
           ))}
         </ul>
       ) : null }

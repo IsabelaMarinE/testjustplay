@@ -28,6 +28,7 @@ function App() {
       <Routes>
         <Route path="" element={<HomePage/>} />
         <Route path="homepage" element={<HomePage/>} />
+        <Route path="gamepage/:id" element={<GamesPage/>} />
         <Route path="gamepage" element={<GamesPage/>} />
         <Route path="details" element={<DetailsPage/>} />
         <Route path="createCity" element={<FormCityPage/>} />
