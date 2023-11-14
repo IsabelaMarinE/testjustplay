@@ -4,12 +4,10 @@ import './index.css';
 import App from './App';
 
 //Redux
-import { store } from "./redux/app/store";
+import { store } from "./redux/store";
 import { Provider } from 'react-redux';
-import { legacy_createStore as createStrore } from 'redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const store = createStrore(reducer);
 root.render(
   <React.StrictMode>
     <Provider store={store}>

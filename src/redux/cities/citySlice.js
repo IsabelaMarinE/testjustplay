@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getListCities, getCityById, getCityByName } from "./cityThunk"
+import { getListCities, getCityById, getCityByName, createCity } from "./cityThunk"
 
 const citySlice = createSlice({
   name: "city",
@@ -49,6 +49,21 @@ const citySlice = createSlice({
       state.isError = "";
     },
     [getCityByName.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.cities = [];
+      state.isError = action.error.message;
+    },
+
+    // CREATE A NEW CITY
+    [createCity.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [createCity.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.cities = action.payload;
+      state.isError = "";
+    },
+    [createCity.rejected]: (state, action) => {
       state.isLoading = false;
       state.cities = [];
       state.isError = action.error.message;
