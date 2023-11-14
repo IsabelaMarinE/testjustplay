@@ -2,14 +2,13 @@ import React from 'react';
 import './CardItem.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { getGameById } from '../../redux/games/gameThunk';
 
 function CardItem({data, isPlay}) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   let id = "";
   if(isPlay){
-    id = data.id_play;
+    id = data.id_game;
   }else{
     id = data.id_city;
   }
@@ -17,10 +16,8 @@ function CardItem({data, isPlay}) {
     if(!isPlay){
       navigate(`/gamepage/${id}`);
     } else {
-      dispatch(getGameById(id));
-      navigate("/details");
+      navigate(`/details/${id}`);
     }
-    
   }
   return(
     <li className="flex justify-between gap-x-6 py-5 style-li" onClick={() => selectGame(id)}>
@@ -34,8 +31,8 @@ function CardItem({data, isPlay}) {
       {
       isPlay &&
       <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-        <p className="text-sm leading-6 text-gray-900">{data.date}</p>
-        <p className="mt-1 text-xs leading-5 text-gray-500">{data.players}</p>
+        <p className="text-sm leading-6 text-gray-900">{data.game_date}</p>
+        <p className="mt-1 text-xs leading-5 text-gray-500">{data.game_team.size}</p>
       </div>
       }
     </li>

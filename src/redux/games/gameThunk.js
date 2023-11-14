@@ -73,9 +73,9 @@ export const filterGame = createAsyncThunk("game/filterGameByName", async (name)
   }
 });
 
-export const getGameById = createAsyncThunk("game/getGameByCity", async (id) => {
+export const getGameById = createAsyncThunk("game/getGameById", async (id) => {
   try {
-    const data = await axios.get(`${baseUrl}/game/getGameByCity/${id}`)
+    const data = await axios.get(`${baseUrl}/game/getGameById/${id}`);
     if(data.status === 200){
       return data.data.items;
     }

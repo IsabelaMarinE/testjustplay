@@ -30,7 +30,7 @@ function App() {
         <Route path="homepage" element={<HomePage/>} />
         <Route path="gamepage/:id" element={<GamesPage/>} />
         <Route path="gamepage" element={<GamesPage/>} />
-        <Route path="details" element={<DetailsPage/>} />
+        <Route path="details/:id" element={<DetailsPage/>} />
         <Route path="createCity" element={<FormCityPage/>} />
         <Route path="createGame" element={<FormGamePage/>} />
         <Route path="*" element={<p>Page not Found</p>} />

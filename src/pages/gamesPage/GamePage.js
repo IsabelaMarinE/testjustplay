@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAllGames, getGamesByCity } from '../../redux/games/gameThunk';
+import { getAllGames, getGamesByCity} from '../../redux/games/gameThunk';
 import { CardItem } from '../../components/card/CardItem';
 import { Loading } from '../../components/loading/Loading';
 import './GamePage.css';
@@ -12,7 +12,7 @@ function GamePage() {
   const { id } = useParams();
 
   const { isLoading, games, isError } = useSelector((state) => ({
-    ...state.games
+    ...state.game
   }));
 
   useEffect(() => {
@@ -21,14 +21,12 @@ function GamePage() {
     }else {
       dispatch(getAllGames());
     }
-  }, [dispatch, games, id]);
+  }, [dispatch, id]);
 
-  console.log("game",games)
 
   const navigateToFormGame = () => {
     navigate('/createGame');
   };
-
 
   return(
     <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">

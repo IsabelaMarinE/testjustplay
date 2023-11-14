@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getGamesByCity, createGame, updateGame, filterGame, getGameById, getAllGames } from "./gameThunk";
 
 const gameSlice = createSlice({
-  name: "game",
+  name: "games",
   initialState: {
     games: [],
     isLoading: false,
@@ -99,5 +99,6 @@ const gameSlice = createSlice({
     },
   },
 });
+
 
 export default gameSlice;
