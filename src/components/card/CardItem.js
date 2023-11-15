@@ -2,6 +2,7 @@ import React from 'react';
 import './CardItem.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { getGameById } from '../../redux/games/gameThunk';
 
 function CardItem({data, isPlay}) {
   const dispatch = useDispatch();
@@ -16,7 +17,8 @@ function CardItem({data, isPlay}) {
     if(!isPlay){
       navigate(`/gamepage/${id}`);
     } else {
-      navigate(`/details/${id}`);
+      dispatch(getGameById(id));
+      navigate(`/details`);
     }
   }
   return(

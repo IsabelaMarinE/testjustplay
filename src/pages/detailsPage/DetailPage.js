@@ -1,28 +1,20 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getGameById } from '../../redux/games/gameThunk';
-import { useParams } from 'react-router-dom';
 import { Loading } from '../../components/loading/Loading'
 import './DetailPage.css';
 
 function DetailPage() {
   const dispatch = useDispatch();
-  const { id } = useParams();
-
-  useEffect(() => {
-    if(id){
-      dispatch(getGameById(id));
-    }
-  }, [id]);
-
+  const navigate = useNavigate();
   const { isLoading, games, isError } = useSelector((state) => ({
     ...state.game
   }));
 
-  console.log("games",games)
-
-  const navigateToFormGame = () => {
-
+  const navigateToFormGame = (id) => {
+    dispatch(getGameById(id));
+    navigate(`/createGame`);
   }
 
   return(
@@ -58,7 +50,7 @@ function DetailPage() {
       </div> }
      <button type="button" 
       className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      onClick={navigateToFormGame}>Edit Game</button>
+      onClick={() => navigateToFormGame(games.id_game)}>Edit Game</button>
     </div>
   )
 }

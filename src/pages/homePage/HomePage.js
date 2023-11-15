@@ -18,6 +18,10 @@ function HomePage() {
     ...state.cities,
   }));
 
+  if(!Array.isArray(cities)){
+    dispatch(getListCities());
+  }
+
   const navigateToFormCity = () => {
     navigate('/createCity');
   };

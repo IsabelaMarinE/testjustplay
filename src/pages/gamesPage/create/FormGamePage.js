@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useParams } from "react-router-dom";
-import { updateGame, createGame, getGameById } from '../../../redux/games/gameThunk';
+import { useNavigate } from "react-router-dom";
+import { updateGame, createGame, getAllGames } from '../../../redux/games/gameThunk';
 import { getListCities } from '../../../redux/cities/cityThunk';
 import { Loading } from '../../../components/loading/Loading';
 import '../GamePage.css';
@@ -9,7 +9,6 @@ import '../GamePage.css';
 function FormGamePage() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const { id } = useParams();
 
   const [id_game, setIdGame] = useState("")
   const [name, setName] = useState("");
@@ -21,9 +20,11 @@ function FormGamePage() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [id_city, setCity] = useState("");
+  const [id_detail, setIddetails] = useState("");
+  const [id_team, setIdteam] = useState("");
 
   const { isLoading, games, isError } = useSelector((state) => ({
-    ...state.games,
+    ...state.game,
   }));
 
   const { cities } = useSelector((state) => ({
@@ -31,12 +32,11 @@ function FormGamePage() {
   }));
 
   useEffect(() => {
-    if(id !== undefined){
-      dispatch(getGameById(id));
-    }
     dispatch(getListCities());
-  }, [dispatch, id]);
+  }, [dispatch]);
 
+  
+  
   useEffect(() => {
     if(games){
       setIdGame(games.id_game)
@@ -44,21 +44,24 @@ function FormGamePage() {
       setLocation(games.location);
       setImg(games.img);
       setGameDate(games.game_date);
-      setSize(games.size);
-      setTimeGame(games.time_game);
-      setDescription(games.description);
-      setPrice(games.price);
+      setSize(games.game_team.size);
+      setTimeGame(games.game_detail.time_game);
+      setDescription(games.game_detail.description);
+      setPrice(games.game_detail.price);
       setCity(games.id_city);
+      setIddetails(games.id_detail);
+      setIdteam(games.id_team);
     }
   }, [games]);
 
   const handleSubmitUpdated = (event) => {
     event.preventDefault();
     if(games){
-      dispatch(updateGame({name,location,img,game_date,size,time_game,description,price,id_city}));
+      dispatch(updateGame({id_game,name,location,img,game_date,size,time_game,description,price,id_city,id_detail,id_team}));
     } else {
-      dispatch(createGame({id_game,name,location,img,game_date,size,time_game,description,price,id_city}));
+      dispatch(createGame({name,location,img,game_date,size,time_game,description,price,id_city}));
     }
+    dispatch(getAllGames());
     navigate("/gamepage");
   };
 
@@ -165,7 +168,7 @@ function FormGamePage() {
                 <div className="relative border border-gray-300 text-gray-800 bg-white shadow-lg">
                   <select className="appearance-none w-full py-1 px-2 bg-white" name="d_city" id="d_city" onChange={(e) => setCity(e.target.value)}>
                     {cities.map((city) => (
-                      <option key={city.id} value={city.id_city}>{city.name}</option>
+                      <option key={city.id_city} value={city.id_city}>{city.name}</option>
                     ))}
   
                   </select>

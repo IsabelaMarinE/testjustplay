@@ -14,7 +14,7 @@ function GamePage() {
   const { isLoading, games, isError } = useSelector((state) => ({
     ...state.game
   }));
-
+  
   useEffect(() => {
     if(id){
       dispatch(getGamesByCity(id));
@@ -23,7 +23,9 @@ function GamePage() {
     }
   }, [dispatch, id]);
 
-
+  if(!Array.isArray(games)){
+    dispatch(getAllGames());
+  }
   const navigateToFormGame = () => {
     navigate('/createGame');
   };
@@ -40,9 +42,9 @@ function GamePage() {
         </div>
       ) : null}
 
-      {!isLoading && games ? (
+      {!isLoading && games.length > 0 ? (
         <ul className="divide-y divide-gray-100" >                     
-          {games.map((game) => (
+          {games?.map((game) => (
             <CardItem key={game.id_game} data={game} isPlay={true}></CardItem>
           ))}
         </ul>

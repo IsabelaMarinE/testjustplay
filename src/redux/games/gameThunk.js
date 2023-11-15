@@ -51,9 +51,24 @@ export const createGame = createAsyncThunk("game/createGame", async ({name,locat
 });
 
 
-export const updateGame = createAsyncThunk("game/updateGame", async (gameModel) => {
+export const updateGame = createAsyncThunk("game/updateGame", async ({id_game,name,location,img,game_date,size,time_game,description,price,id_city,id_detail,id_team}) => {
+  const gameModel = {
+    id_game: id_game,
+    name: name,
+    location: location,
+    img: img,
+    game_date: game_date,
+    size: size,
+    time_game: time_game,
+    description: description,
+    price: price,
+    id_city: id_city,
+    id_detail: id_detail,
+    id_team: id_team,
+    isActive: true
+  }
   try {
-    const data = await axios.post(`${baseUrl}/game/updateGame`,gameModel)
+    const data = await axios.post(`${baseUrl}/game/updateGame`, gameModel)
     if(data.status === 200){
       return data.data.items;
     }
